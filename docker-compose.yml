@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+
+  spothook-api:
+    build: 
+      context: ./
+      dockerfile: .docker/Dockerfile
+    environment:
+      - APP_BASE_URL=${APP_BASE_URL}
+      - HUBSPOT_OAUTH_AUTH_URL=${HUBSPOT_OAUTH_AUTH_URL}
+      - HUBSPOT_OAUTH_CLIENT_ID=${HUBSPOT_OAUTH_CLIENT_ID}
+      - HUBSPOT_OAUTH_CLIENT_SECRET=${HUBSPOT_OAUTH_CLIENT_SECRET}
+      - HUBSPOT_OAUTH_GRANT_TYPE=${HUBSPOT_OAUTH_GRANT_TYPE}
+      - HUBSPOT_OAUTH_TOKEN_URL=${HUBSPOT_OAUTH_TOKEN_URL}
+      - HUBSPOT_OAUTH_VALIDATE_TOKEN_URL=${HUBSPOT_OAUTH_VALIDATE_TOKEN_URL}
+      - HUBSPOT_OAUTH_SCOPE=${HUBSPOT_OAUTH_SCOPE}
+      - HUBSPOT_CONTACT_API_URL=${HUBSPOT_CONTACT_API_URL}
+      - HUBSPOT_OAUTH_REDIRECT_URI=${HUBSPOT_OAUTH_REDIRECT_URI}
+    ports:
+      - "8080:8080"
+
+  ngrok:
+    image: ngrok/ngrok:latest
+    environment:
+      - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
+      - NGROK_DOMAIN=${NGROK_DOMAIN}
+    depends_on:
+      - spothook-api
+    command: http --domain=${NGROK_DOMAIN} spothook-api:8080
+    ports:
+      - "4040:4040"
