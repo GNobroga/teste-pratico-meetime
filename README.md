@@ -1,6 +1,6 @@
 # Escolhas Técnicas
 
-Para este projeto, utilizei Java com o framework Spring, adotando o modelo em camadas para separar as responsabilidades. Também apliquei alguns princípios do SOLID, como a inversão de dependência, a fim de manter as classes desacopladas e independentes.
+Para este projeto, optei por utilizar Java com o framework Spring, uma vez que tenho mais familiaridade com ele, o que facilita o desenvolvimento e a manutenção. Adotei o modelo em camadas para garantir uma separação clara das responsabilidades, proporcionando uma estrutura mais organizada e fácil de entender. Além disso, implementei alguns princípios do SOLID, em especial a Inversão de Dependência, com o objetivo de manter as classes desacopladas e independentes. Essa abordagem contribui para a flexibilidade e escalabilidade do sistema, facilitando futuras modificações e a reutilização de componentes.
 
 # Como executar o projeto
 
@@ -53,7 +53,7 @@ Esse token permitirá que a aplicação realize chamadas autenticadas à API do 
 
 Neste momento, o código de autorização será capturado pela aplicação, que iniciará automaticamente a troca pelo token de acesso.
 
-![alt text](/docs/-1.png)
+![alt text](/docs/image-1.png)
 
 #### 🔍 Regras de Validação
 
@@ -84,7 +84,7 @@ O campo **email** é o único obrigatório. Os demais campos são opcionais, por
 
 ![alt text](/docs/email-required.png)
 
-![alt text](/docs/-7.png)
+![alt text](/docs/image -7.png)
 
 
 #### 🔁 Saída
@@ -149,6 +149,11 @@ Para garantir que as requisições à API do HubSpot não excedam os limites de 
 A função em questão na classe `HubSpotHttpClient` implementa a lógica necessária para garantir que as requisições à API do HubSpot sejam feitas dentro dos limites de rate limit definidos pela plataforma. Ela utiliza um agendamento assíncrono e a criação de virtual threads para otimizar o uso de recursos e garantir que as requisições que não podem ser feitas dentro da janela atual de tempo sejam executadas assim que possível.
 
 ![alt text](/docs/image-9.png)
+
+
+# Ideias de Melhoria
+
+Implementar um circuit breaker para lidar com falhas em requisições à API externa de maneira mais ágil e eficiente. Além disso, adotar uma abordagem baseada em jobs assíncronos com fila para evitar os problemas que surgem atualmente com o agendamento das tarefas. A abordagem atual sofre com o risco de exceções de timeout, caso uma tarefa leve mais de 10 segundos para ser executada.
 
 # 🚀 Tecnologias Utilizadas
 
